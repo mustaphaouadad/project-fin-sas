@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <string.h>
-
 #define MAX_TACHES 100
 
 typedef struct {
@@ -32,7 +30,7 @@ void AjouterTache() {
         printf("Donner la date de la tache (Format: jour-mois-annee) : ");
         scanf("%d-%d-%d", &nouvelleTache.Date.jours, &nouvelleTache.Date.mois, &nouvelleTache.Date.annee);
 
-        printf("Donner la prioritee de la tache (0: Faible, 1: Importante) : ");
+        printf("Donner la prioritee de la tache (0: Faible / 1: Importante) : ");
         scanf("%d", (int*)&nouvelleTache.Priorite);
 
         ListeTaches[countTaches++] = nouvelleTache;
@@ -46,7 +44,7 @@ void AfficherListeTaches() {
 	if(countTaches > 0){
     printf("----------------Liste des taches :------------------\n");
     for (i = 0; i < countTaches; i++) {
-        printf("Tache %d :\n", i + 1);
+        printf("----Tache %d :\n", i + 1);
         printf("Titre : %s\n", ListeTaches[i].titre);
         printf("Description : %s\n", ListeTaches[i].Description);
         printf("Date : %d-%d-%d\n", ListeTaches[i].Date.jours, ListeTaches[i].Date.mois, ListeTaches[i].Date.annee);
@@ -98,6 +96,27 @@ void ModifierTache() {
         printf("Aucune tache a modifier!\n");
     }
 }
+void SupprimerTache() {
+    if (countTaches > 0) {
+        int i;
+        int numeroTache;
+        printf("Entrez le numero de la tache a supprimer : ");
+        scanf("%d", &numeroTache);
+
+        if (numeroTache > 0 && numeroTache <= countTaches) {
+            for (i = numeroTache - 1; i < countTaches ; i++) {
+                ListeTaches[i] = ListeTaches[i + 1];
+            }
+
+            countTaches--;
+            printf("Tache supprimee avec succes!\n");
+        } else {
+            printf("Numero de tache invalide.\n");
+        }
+    } else {
+        printf("Aucune tache a supprimer!\n");
+    }
+}
 int main() {
     int choix;
 
@@ -106,6 +125,7 @@ int main() {
         printf("1. Ajouter une tache\n");
         printf("2. Afficher la liste des taches\n");
         printf("3. Modifier une tache\n");
+        printf("4. Supprimer une tache\n");
         
         printf("0. Quitter\n");
 
@@ -122,12 +142,15 @@ int main() {
             case 3:
                 ModifierTache();
                 break;
+                 case 4:
+                SupprimerTache();
+                break;
             
             case 0:
                 printf("Programme termine!\n");
                 break;
             default:
-                printf("Choix invalide. Veuillez entrer un nombre entre 0 et 8.\n");
+                printf("Choix invalide. Veuillez entrer un nombre entre 0 et 4.\n");
         }
     } while (choix != 0);
 
