@@ -81,24 +81,25 @@ void ModifierTache() {
         printf("Donner le numero de la tache a modifier: ");
         scanf("%d", &numeroTache);
         if (numeroTache > 0 && numeroTache <= countTaches) {
-            Tache *modifierTache = &ListeTaches[numeroTache - 1];
+            Tache modifierTache = ListeTaches[numeroTache - 1];
              printf("Entrez la nouvelle tittre de la tache : ");
-            scanf(" %[^\n]s", modifierTache->titre);
+            scanf(" %[^\n]s", modifierTache.titre);
 
             printf("Entrez la nouvelle description de la tache : ");
-            scanf(" %[^\n]s", modifierTache->Description);
+            scanf(" %[^\n]s", modifierTache.Description);
 
             printf("Entrez la nouvelle date de la tache : \n");
         printf(" entrer le jeur:");
-        scanf("%d",&modifierTache->Date.jours);
+        scanf("%d",&modifierTache.Date.jours);
         printf(" entrer le mois:");
-        scanf("%d",&modifierTache->Date.mois);
+        scanf("%d",&modifierTache.Date.mois);
         printf(" entrer l annee:");
-        scanf("%d",&modifierTache->Date.annee);
+        scanf("%d",&modifierTache.Date.annee);
             // scanf("%d-%d-%d", &modifierTache->Date.jours, &modifierTache->Date.mois, &modifierTache->Date.annee);
 
             printf("Entrez la nouvelle prioritee de la tache (0: basse, 1:  haute) : ");
-            scanf("%d", &modifierTache->Priorite);
+            scanf("%d", &modifierTache.Priorite);
+            ListeTaches[numeroTache - 1] = modifierTache;
 
             printf("Tache modifiee avec succes!\n");
         } else {
@@ -106,7 +107,7 @@ void ModifierTache() {
         }
     } else {
         printf("Aucune tache a modifier!\n");
-    }
+   }
 }
 void SupprimerTache() {
     if (countTaches > 0) {
@@ -194,7 +195,11 @@ int main() {
                 int priorite;
                 printf("Entrez la priorite (0: basse, 1: haute) : ");
                 scanf("%d", &priorite);
+                if (priorite < 0 || priorite > 1) {
+                    printf("Choix invalide pour la priorite. Veuillez entrer 0 ou 1.\n");
+                } else {
                 FiltrerParPriorite((PrioriteEnum)priorite);
+                }
             } break;
             
             case 0:
