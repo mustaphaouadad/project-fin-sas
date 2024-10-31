@@ -28,16 +28,22 @@ void AjouterTache() {
         scanf(" %[^\n]s", nouvelleTache.Description);
 
         printf("Donner la date de la tache : \n");
-        printf(" entrer le jeur:");
+        printf(" entrer le jours:");
         scanf("%d",&nouvelleTache.Date.jours);
         printf(" entrer le mois:");
         scanf("%d",&nouvelleTache.Date.mois);
         printf(" entrer l annee:");
         scanf("%d",&nouvelleTache.Date.annee);
         // scanf("%d-%d-%d", &nouvelleTache.Date.jours, &nouvelleTache.Date.mois, &nouvelleTache.Date.annee);
-
-        printf("Donner la prioritee de la tache (0: basse / 1: haute) : ");
-        scanf("%d", &nouvelleTache.Priorite);
+        
+        while (1) {
+            printf("Donner la prioritee de la tache (0: basse / 1: haute) : ");
+            scanf("%d", &nouvelleTache.Priorite);
+            if (nouvelleTache.Priorite == 0 || nouvelleTache.Priorite == 1) {
+                break; 
+            }
+            printf("Choix invalide. Veuillez entrer 0 ou 1.\n");
+        }
 
         ListeTaches[countTaches++] = nouvelleTache;
         printf("Tache ajoutee avec succes!\n");
@@ -82,33 +88,41 @@ void ModifierTache() {
         scanf("%d", &numeroTache);
         if (numeroTache > 0 && numeroTache <= countTaches) {
             Tache modifierTache = ListeTaches[numeroTache - 1];
-             printf("Entrez la nouvelle tittre de la tache : ");
+            printf("Entrez la nouvelle titre de la tache : ");
             scanf(" %[^\n]s", modifierTache.titre);
 
             printf("Entrez la nouvelle description de la tache : ");
             scanf(" %[^\n]s", modifierTache.Description);
 
             printf("Entrez la nouvelle date de la tache : \n");
-        printf(" entrer le jeur:");
-        scanf("%d",&modifierTache.Date.jours);
-        printf(" entrer le mois:");
-        scanf("%d",&modifierTache.Date.mois);
-        printf(" entrer l annee:");
-        scanf("%d",&modifierTache.Date.annee);
-            // scanf("%d-%d-%d", &modifierTache->Date.jours, &modifierTache->Date.mois, &modifierTache->Date.annee);
+            printf(" entrer le jours: ");
+            scanf("%d", &modifierTache.Date.jours);
+            printf(" entrer le mois: ");
+            scanf("%d", &modifierTache.Date.mois);
+            printf(" entrer l annee: ");
+            scanf("%d", &modifierTache.Date.annee);
+              // scanf("%d-%d-%d", &modifierTache->Date.jours, &modifierTache->Date.mois, &modifierTache->Date.annee);
 
-            printf("Entrez la nouvelle prioritee de la tache (0: basse, 1:  haute) : ");
-            scanf("%d", &modifierTache.Priorite);
+            
+            while (1) {
+                printf("Entrez la nouvelle prioritee de la tache (0: basse, 1: haute) : ");
+                scanf("%d", &modifierTache.Priorite);
+                if (modifierTache.Priorite == 0 || modifierTache.Priorite == 1) {
+                    break; 
+                }
+                printf("Choix invalide. Veuillez entrer 0 ou 1.\n");
+            }
+
             ListeTaches[numeroTache - 1] = modifierTache;
-
             printf("Tache modifiee avec succes!\n");
         } else {
             printf("Aucune tache a modifier!\n");
         }
     } else {
         printf("Aucune tache a modifier!\n");
-   }
+    }
 }
+
 void SupprimerTache() {
     if (countTaches > 0) {
         int i;
@@ -192,15 +206,17 @@ int main() {
                 SupprimerTache();
                 break;
                  case 5: {
-                int priorite;
-                printf("Entrez la priorite (0: basse, 1: haute) : ");
-                scanf("%d", &priorite);
-                if (priorite < 0 || priorite > 1) {
-                    printf("Choix invalide pour la priorite. Veuillez entrer 0 ou 1.\n");
-                } else {
-                FiltrerParPriorite((PrioriteEnum)priorite);
-                }
-            } break;
+    int priorite;
+    while (1) { 
+        printf("Entrez la priorite (0: basse, 1: haute) : ");
+        scanf("%d", &priorite);
+        if (priorite == 0 || priorite == 1) {
+            FiltrerParPriorite((PrioriteEnum)priorite);
+            break; 
+        }
+        printf("Choix invalide. Veuillez entrer 0 ou 1.\n");
+    }
+} break;
             
             case 0:
                 printf("Programme termine!\n");
