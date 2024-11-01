@@ -18,6 +18,23 @@ typedef struct {
 } Tache;
 Tache ListeTaches[MAX_TACHES];
 int countTaches = 0;
+int Vdate(int jours, int mois, int annee) {
+    if (mois < 1 || mois > 12) {
+        return 0; 
+    }
+    
+    if (jours < 1 || jours > 31) {
+        return 0; 
+    }
+    if (annee < 2024)
+    {
+        return 0;
+    }
+    
+
+    return 1; 
+}
+
 void AjouterTache() {
     if (countTaches < MAX_TACHES) {
         Tache nouvelleTache;
@@ -26,16 +43,24 @@ void AjouterTache() {
 
         printf("Donner la description de la tache : ");
         scanf(" %[^\n]s", nouvelleTache.Description);
-
+       while (1)
+       {
         printf("Donner la date de la tache : \n");
-        printf(" entrer le jours:");
+        printf(" Date jours:");
         scanf("%d",&nouvelleTache.Date.jours);
-        printf(" entrer le mois:");
+        printf(" Date mois:");
         scanf("%d",&nouvelleTache.Date.mois);
-        printf(" entrer l annee:");
+        printf(" Date annee:");
         scanf("%d",&nouvelleTache.Date.annee);
         // scanf("%d-%d-%d", &nouvelleTache.Date.jours, &nouvelleTache.Date.mois, &nouvelleTache.Date.annee);
+        if (Vdate(nouvelleTache.Date.jours,nouvelleTache.Date.mois,nouvelleTache.Date.annee))
+        {
+           break;
+        }else{
+            printf("Date invalide. Veuillez entrer une date valide.\n");
+        }
         
+        }
         while (1) {
             printf("Donner la prioritee de la tache (0: basse / 1: haute) : ");
             scanf("%d", &nouvelleTache.Priorite);
@@ -93,17 +118,22 @@ void ModifierTache() {
 
             printf("Entrez la nouvelle description de la tache : ");
             scanf(" %[^\n]s", modifierTache.Description);
-
+           while (1)
+           {
             printf("Entrez la nouvelle date de la tache : \n");
-            printf(" entrer le jours: ");
+            printf(" Date jours: ");
             scanf("%d", &modifierTache.Date.jours);
-            printf(" entrer le mois: ");
+            printf(" Date mois: ");
             scanf("%d", &modifierTache.Date.mois);
-            printf(" entrer l annee: ");
+            printf(" Date annee: ");
             scanf("%d", &modifierTache.Date.annee);
               // scanf("%d-%d-%d", &modifierTache->Date.jours, &modifierTache->Date.mois, &modifierTache->Date.annee);
+               if (Vdate(modifierTache.Date.jours,modifierTache.Date.mois,modifierTache.Date.annee))
+            {
+                break;
+            }
 
-            
+            }
             while (1) {
                 printf("Entrez la nouvelle prioritee de la tache (0: basse, 1: haute) : ");
                 scanf("%d", &modifierTache.Priorite);
